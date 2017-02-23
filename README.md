@@ -1,7 +1,7 @@
-Symfony Recruitment Application
+Url Benchmark Application
 ========================
 
-Symfony application created for recruitment purposes.
+Symfony application created for url benchmark purposes.
 
 
 Installation instructions

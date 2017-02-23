@@ -1,0 +1,45 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+parameters:
+    # params for benchmark alert service
+    app.benchmark_alert.msg_params:
+        from:  example@gmail.com
+        to: dev@localhost
+        subject:  Website benchmark alert!
+
+    # params for sms gataway
+    app.sms_gateway.smshost: http://examplesmsgateway.com
+    app.sms_gateway.user: smsuser
+    app.sms_gateway.password: secretfrase
+
+    # params for app sms service
+    app.benchmark_sms_alert.phone: 696686676
+
+    # benchmark report type
+    app.report_service.report_type: [txt]
+    app.report_service.report_path: "%kernel.logs_dir%/benchmark/"
+
+services:
+    app.benchmark_alert:
+        class:        AppBundle\Service\BenchmarkAlert
+        arguments:    ['@mailer', '@twig', '%app.benchmark_alert.msg_params%']
+
+    app.sms_gateway:
+        class:  AppBundle\Service\SmsGateway
+        arguments: ['%app.sms_gateway.smshost%', '%app.sms_gateway.user%', '%app.sms_gateway.password%']
+
+    app.benchmark_sms_alert:
+        class: AppBundle\Service\BenchmarkSmsAlert
+        arguments: ['@app.sms_gateway', '%app.benchmark_sms_alert.phone%']
+
+    app.report_service:
+        class: AppBundle\Service\ReportService
+        arguments: ['%app.report_service.report_type%', '%app.report_service.report_path%']

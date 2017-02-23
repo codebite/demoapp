@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h2>Benchmark results for the {{ benchmarkSet.benchmarkedWebsite }} website</h2>
+            </div>
+
+            <div id="status">
+                <p>
+                    Response time for the  <b>{{ benchmarkSet.benchmarkedWebsite }}</b> :  {{ benchmarkedUrlResult.responseTime }} [ms] <br/>
+                    Is website response slower then at least one of the competitors:
+                    {% if benchmarkedUrlResult.isSlowerThanCompetitors == true %}
+                        <span class="danger">Yes!</span>
+                    {% else %}
+                        <span class="notice">No!</span>
+                    {% endif %}
+                    <br/>
+                    Is website response at least twice slower than one of the competitors:
+                    {% if benchmarkedUrlResult.isTwiceSlowerThanCompetitors == true %}
+                        <span class="alert">Yes!</span>
+                    {% else %}
+                        <span class="notice">No!</span>
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <div id="next">
+                <h2>Competitors results</h2>
+
+                <table class="results">
+                    <thead>
+                    <tr>
+                        <th>Website url</th>
+                        <th>Website response time [ms]</th>
+                        <th>Time difference [ms]</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, competitor in competitorsResults %}
+                            <tr>
+                                <td>{{ competitor.url }}</td>
+                                <td>{{ competitor.responseTime }}</td>
+                                <td>{{ benchmarkedUrlResult.responseTime - competitor.responseTime }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <p style="text-align: center;">
+                    <a href="{{ path('benchmark-set') }}">New benchmark</a>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

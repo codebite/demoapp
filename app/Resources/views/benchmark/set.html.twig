@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>App for website benchmarking</h1>
+            </div>
+
+            <div id="status">
+                <p>
+                    Your application is now ready
+                </p>
+            </div>
+
+            <div id="next">
+                <h2>Set benchmark params</h2>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -30,9 +30,3 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-swiftmailer:
-    delivery_addresses: ['dev@localhost']
-    transport: smtp
-    host:      localhost
-    username:  "dev"
-    password:  "dev"
